@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  app:
+    container_name: app_node_mariadb
+    restart: always
+    build: .
+    ports:
+      - "4000:3000"
+    links:
+      - db
+    volumes:
+      - .:/usr/src/app
+  db:
+    container_name: db_mariadb
+    restart: always
+    image: mariadb
+    logging:
+      driver: none
+    environment:
+        MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "127.0.0.1:3307:3306"
